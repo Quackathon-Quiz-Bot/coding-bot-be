@@ -19,6 +19,7 @@ async function createTables(){
 try {
   console.log("Starting to Create tables...");
     await client.query(`
+
     CREATE TABLE users(
       id SERIAL PRIMARY KEY,
       username VARCHAR(255) UNIQUE NOT NULL,
@@ -26,7 +27,8 @@ try {
       incorrect_answers INT NOT NULL DEFAULT (0),
       life_time_score INT NOT NULL DEFAULT (0)
     )`
-    )
+    );
+    console.log("Finished building tables");
 
 } catch (error) {
   console.error("Error building tables");
