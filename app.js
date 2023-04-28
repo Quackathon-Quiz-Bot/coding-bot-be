@@ -12,6 +12,7 @@ async function getPostgresVersion() {
 }
 
 getPostgresVersion();
+const{PORT=8080}=process.env
 const express =require('express');
 const server = express();
 const apiRouter = require('./api');
