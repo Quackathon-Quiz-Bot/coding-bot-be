@@ -1,13 +1,13 @@
-const { client } = require("./client");
+const  client  = require("./client");
+console.log(client, "this is client")
 
 
 async function dropTables() {
   try {
     console.log("Starting to drop tables...");
+    await client.connect();
     await client.query(`
-    DROP TABLE IF EXISTS users;
-
-
+      DROP TABLE IF EXISTS users;
     `);
     console.log("Finished dropping tables");
   } catch (error) {
@@ -15,6 +15,7 @@ async function dropTables() {
     throw error;
   }
 }
+
 async function createTables(){
 try {
   console.log("Starting to Create tables...");
@@ -39,14 +40,15 @@ try {
 
 async function buildingDB() {
   try {
-    client.connect();
     await dropTables();
     await createTables();
+    console.log("Finished building database");
   } catch (error) {
-    console.log("error during building");
+    console.log("Error during building database");
     throw error;
   }
 }
+
+
 buildingDB()
-  .catch(console.error)
-  .finally(() => client.end());
+  .catch(console.error);

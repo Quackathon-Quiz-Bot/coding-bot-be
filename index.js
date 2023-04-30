@@ -1,23 +1,26 @@
-const postgres = require('postgres');
+
 require('dotenv').config();
+const {client}= require('./db/client');
+client.connect();
 
-const { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID } = process.env;
-const URL = `postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}/${PGDATABASE}?options=project%3D${ENDPOINT_ID}`;
+// const { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID } = process.env;
+// const URL = `postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}/${PGDATABASE}?options=project%3D${ENDPOINT_ID}`;
 
-const sql = postgres(URL, { ssl: 'require' });
+// ;
 
-async function getPostgresVersion() {
-  const result = await sql`select version()`;
-  console.log(result);
-}
+// async function getPostgresVersion() {
+//   const result = await client`select version()`;
+//   console.log(result);
+// }
 
-getPostgresVersion();
 const{PORT=8080}=process.env
+
+// getPostgresVersion();
+
 const express =require('express');
 const server = express();
 const apiRouter = require('./api');
-const {client}= require('./db/client');
-client.connect();
+
 
 const morgan= require('morgan');
 server.use(morgan('dev'));
